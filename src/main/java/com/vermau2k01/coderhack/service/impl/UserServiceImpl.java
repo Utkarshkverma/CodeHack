@@ -9,7 +9,6 @@ import com.vermau2k01.coderhack.entity.Badge;
 import com.vermau2k01.coderhack.entity.MarksRequest;
 import com.vermau2k01.coderhack.entity.UserRequest;
 import com.vermau2k01.coderhack.entity.Users;
-import com.vermau2k01.coderhack.exception.InvalidMarksException;
 import com.vermau2k01.coderhack.exception.UserNotFoundException;
 import com.vermau2k01.coderhack.repository.UserRepository;
 import com.vermau2k01.coderhack.service.UserService;
@@ -45,9 +44,6 @@ public class UserServiceImpl implements UserService{
     @Override
     public Users updateMarks(String id, MarksRequest marksRequest) {
     Users user = userRepository.findById(id).orElseThrow(()-> new UserNotFoundException(id));
-    if(marksRequest.getMarks()<0 || marksRequest.getMarks()>100)
-    throw new InvalidMarksException();
-    
     int marks  = marksRequest.getMarks();
     user.setMarks(marks);
     if(marks >= 60)

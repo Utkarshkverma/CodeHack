@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vermau2k01.coderhack.service.UserService;
+
+import jakarta.validation.Valid;
+
 import com.vermau2k01.coderhack.entity.MarksRequest;
 import com.vermau2k01.coderhack.entity.UserRequest;
 import com.vermau2k01.coderhack.entity.Users;
@@ -45,7 +48,7 @@ public class UserController {
     
 
     @PostMapping("/users")
-    public ResponseEntity<Users> addUsers(@RequestBody UserRequest userRequest)
+    public ResponseEntity<Users> addUsers(@Valid @RequestBody UserRequest userRequest)
     {
         return new ResponseEntity<>(userService.addUser(userRequest),HttpStatus.OK);
     }
@@ -58,7 +61,7 @@ public class UserController {
     }
 
     @PutMapping("/users/{id}")
-    public ResponseEntity<Users> updateMarks(@PathVariable String id, @RequestBody MarksRequest marksRequest)
+    public ResponseEntity<Users> updateMarks(@PathVariable String id,@Valid @RequestBody MarksRequest marksRequest)
     {
         return new ResponseEntity<>(userService.updateMarks(id, marksRequest), HttpStatus.OK);
     }
