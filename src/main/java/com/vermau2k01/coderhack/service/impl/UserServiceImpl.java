@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.vermau2k01.coderhack.entity.Badge;
+import com.vermau2k01.coderhack.entity.MarksRequest;
+import com.vermau2k01.coderhack.entity.UserRequest;
 import com.vermau2k01.coderhack.entity.Users;
 import com.vermau2k01.coderhack.exception.InvalidMarksException;
 import com.vermau2k01.coderhack.exception.UserNotFoundException;
@@ -31,19 +33,20 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public Users addUser(String userName) {
+    public Users addUser(UserRequest userRequest) {
         Users user = new Users();
-        user.setName(userName);
+        user.setName(userRequest.getName());
         user.setMarks(0);
         return userRepository.save(user);
     }
 
     @Override
-    public Users updateMarks(String id, int marks) {
+    public Users updateMarks(String id, MarksRequest marksRequest) {
     Users user = userRepository.findById(id).orElseThrow(()-> new UserNotFoundException(id));
-    if(marks<0 || marks>100)
+    if(marksRequest.getMarks()<0 || marksRequest.getMarks()>100)
     throw new InvalidMarksException();
-
+    
+    int marks  = marksRequest.getMarks();
     user.setMarks(marks);
     if(marks >= 60)
     user.getBadges().add(Badge.CODE_MASTER);
