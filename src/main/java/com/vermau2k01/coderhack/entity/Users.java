@@ -14,7 +14,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Document(collation = "user_database")
+@Document
 @NoArgsConstructor
 @AllArgsConstructor
 public class Users {

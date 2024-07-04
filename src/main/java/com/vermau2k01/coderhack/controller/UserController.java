@@ -18,17 +18,23 @@ import com.vermau2k01.coderhack.entity.UserRequest;
 import com.vermau2k01.coderhack.entity.Users;
 import java.util.*;
 
+
+
 @RestController
 @RequestMapping("/api/v1")
 public class UserController {
     
     @Autowired
     private UserService userService;
+    
+
 
     @GetMapping("/users")
     public ResponseEntity<List<Users>> getAllUsers()
     {
-    return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
+        List<Users> users =  userService.findAllUsers();
+        return new ResponseEntity<>(users, HttpStatus.FOUND);
+        
     }
 
     @GetMapping("/users/{id}")

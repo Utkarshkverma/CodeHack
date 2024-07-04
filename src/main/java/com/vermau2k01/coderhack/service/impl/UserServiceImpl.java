@@ -14,15 +14,17 @@ import com.vermau2k01.coderhack.exception.UserNotFoundException;
 import com.vermau2k01.coderhack.repository.UserRepository;
 import com.vermau2k01.coderhack.service.UserService;
 
+
 @Service
 public class UserServiceImpl implements UserService{
     
     @Autowired
     private UserRepository userRepository;
-
+    
     @Override
-    public List<Users> getAllUsers() {
-        List<Users> list = userRepository.findAll();
+    public List<Users> findAllUsers()
+    {
+        List<Users> list =  userRepository.findAll();
         list.sort((a,b)->b.getMarks()-a.getMarks());
         return list;
     }
